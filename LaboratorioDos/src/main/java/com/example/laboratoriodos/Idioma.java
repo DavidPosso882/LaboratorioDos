@@ -9,8 +9,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class Idioma extends Application {
+
+    private static final Logger LOGGER = Logger.getLogger(Idioma.class.getName());
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -21,7 +26,12 @@ public class Idioma extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        FileHandler archivo = new FileHandler("Log.txt", true);
+        archivo.setFormatter(new SimpleFormatter());
+        LOGGER.addHandler(archivo);
+
         launch();
 
         Persona persona=new Persona(1,"Daniela","Arboleda",20);
