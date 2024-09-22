@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="21.0.4" class="java.beans.XMLDecoder">
+ <object class="com.example.laboratoriodos.Persona">
+  <void property="apellido">
+   <string>Arboleda</string>
+  </void>
+  <void property="edad">
+   <int>20</int>
+  </void>
+  <void property="id">
+   <int>1</int>
+  </void>
+  <void property="nombre">
+   <string>Daniela</string>
+  </void>
+ </object>
+</java>
