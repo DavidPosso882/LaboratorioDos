@@ -3,6 +3,7 @@ package com.example.laboratoriodos;
 import java.io.*;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
+import java.util.ArrayList;
 
 public class Utilidades {
     private static Utilidades instanciaUnica;
@@ -47,6 +48,23 @@ public class Utilidades {
         objeto=decodificador.readObject();
         decodificador.close();
         return objeto;
+    }
+
+    public static void escribirArchivo(String archivo, ArrayList<String> texto, boolean adicionar) throws IOException {
+
+        FileWriter archivoSalida = null;
+        BufferedWriter bufferSalida;
+
+        archivoSalida = new FileWriter(archivo, adicionar);
+        bufferSalida = new BufferedWriter(archivoSalida);
+
+        for (int i = 0; i < 10; i++) {
+            String linea = texto.get(i);
+            bufferSalida.write(linea + "\n");
+        }
+        bufferSalida.flush();
+        bufferSalida.close();
+        archivoSalida.close();
     }
 
 }
