@@ -1,0 +1,2 @@
+Sep 23, 2024 4:58:51 PM com.example.laboratoriodos.Idioma main
+INFO: Se inicio la aplicacion.
