@@ -6,6 +6,10 @@ import java.beans.XMLEncoder;
 import java.util.ArrayList;
 
 public class Utilidades {
+
+    public static final String RUTA_ARCHIVO_LOG = "src/main/resources/Persistencia/log.txt";
+    public static final String RUTA_ARCHIVO_Objeto = "src/main/resources/Persistencia/objeto.txt";
+
     private static Utilidades instanciaUnica;
     private Utilidades() {
     }
@@ -52,6 +56,8 @@ public class Utilidades {
 
     public static void escribirArchivo(String archivo, ArrayList<String> texto, boolean adicionar) throws IOException {
 
+        int n = 9;
+
         FileWriter archivoSalida = null;
         BufferedWriter bufferSalida;
 
@@ -61,10 +67,15 @@ public class Utilidades {
         for (int i = 0; i < 10; i++) {
             String linea = texto.get(i);
             bufferSalida.write(linea + "\n");
+            if (i==n){
+                bufferSalida.flush();
+                n +=10;
+            }
         }
         bufferSalida.flush();
         bufferSalida.close();
         archivoSalida.close();
     }
+
 
 }
