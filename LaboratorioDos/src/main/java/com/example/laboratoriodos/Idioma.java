@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.FileHandler;
@@ -27,11 +28,21 @@ public class Idioma extends Application {
         stage.show();
     }
 
+    public static final String RUTA_ARCHIVO_Objeto = "src/main/resources/Persistencia/objeto.txt";
+
     public static void main(String[] args) throws IOException {
 
         FileHandler archivo = new FileHandler("Log.txt", true);
         archivo.setFormatter(new SimpleFormatter());
         LOGGER.addHandler(archivo);
+
+
+
+        ArrayList<String> lista = new ArrayList<>();
+        lista.add("Camilo");
+        lista.add("David");
+        
+        Utilidades.escribirArchivo(RUTA_ARCHIVO_Objeto,lista,true);
 
         launch();
 

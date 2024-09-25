@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Utilidades {
 
     public static final String RUTA_ARCHIVO_LOG = "src/main/resources/Persistencia/log.txt";
-    public static final String RUTA_ARCHIVO_Objeto = "src/main/resources/Persistencia/objeto.txt";
+
 
     private static Utilidades instanciaUnica;
     private Utilidades() {
