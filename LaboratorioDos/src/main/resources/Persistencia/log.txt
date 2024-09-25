@@ -4,3 +4,7 @@ Sep 25, 2024 12:30:10 PM com.example.laboratoriodos.Utilidades guardarRegistroLo
 INFO: Iniciar,Se inició el programa,2024-09-25 12:30
 Sep 25, 2024 12:31:38 PM com.example.laboratoriodos.Utilidades guardarRegistroLog
 INFO: Iniciar,Se inició el programa,2024-09-25 12:31
+Sep 25, 2024 12:32:14 PM com.example.laboratoriodos.Utilidades guardarRegistroLog
+INFO: Iniciar,Se inició el programa,2024-09-25 12:32
+Sep 25, 2024 12:41:39 PM com.example.laboratoriodos.Utilidades guardarRegistroLog
+INFO: Iniciar,Se inició el programa,2024-09-25 12:41
