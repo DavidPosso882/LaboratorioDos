@@ -16,7 +16,7 @@ public class Utilidades {
     private Utilidades() {
     }
 
-    // Método para obtener la instancia única de la clase
+    // Metodo para obtener la instancia única de la clase
     public static Utilidades getInstance() {
         if (instanciaUnica == null) {
             instanciaUnica = new Utilidades();
