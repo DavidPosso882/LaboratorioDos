@@ -60,7 +60,25 @@ public class crudViewController {
         btnEliminar.setText(bundle.getString("eliminar"));
         lblTitulo.setText(bundle.getString("titulo"));
     }
-    
+
+    private ResourceBundle obtenerBundle() {
+        String selectedLanguage = idiomaChoice.getValue();
+        ResourceBundle bundle = null;
+
+        switch (selectedLanguage) {
+            case "Español":
+                bundle = ResourceBundle.getBundle("Idioma", new Locale("es", "ES"));
+                break;
+            case "Inglés":
+                bundle = ResourceBundle.getBundle("Idioma", new Locale("en", "US"));
+                break;
+            case "Alemán":
+                bundle = ResourceBundle.getBundle("Idioma", new Locale("de", "DE"));
+                break;
+        }
+        return bundle;
+    }
+
 
     @FXML
     public void initialize() {
@@ -95,6 +113,99 @@ public class crudViewController {
         }
     }
 
+    @FXML
+    void Guardar(ActionEvent event) throws IOException {
+        ResourceBundle bundle = obtenerBundle(); // Obtener el bundle según el idioma seleccionado
+        if (txtID.getText().isEmpty() || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtEdad.getText().isEmpty()) {
+            System.out.println(bundle.getString("camposVacios"));
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(txtID.getText());
+            int edad = Integer.parseInt(txtEdad.getText());
+
+            Persona persona = new Persona(id, txtNombre.getText(), txtApellido.getText(), edad);
+            MetodosCrud.Guardar(persona);
+
+            System.out.println(bundle.getString("personaGuardada"));
+
+        } catch (NumberFormatException e) {
+            System.out.println(bundle.getString("errorFormatoNumerico"));
+        }
+    }
+
+    @FXML
+    void Eliminar(ActionEvent event) throws IOException {
+        ResourceBundle bundle = obtenerBundle(); // Obtener el bundle según el idioma seleccionado
+
+        if (txtId.getText().isEmpty()) {
+            System.out.println(bundle.getString("proporcionarID"));
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(txtId.getText());
+            MetodosCrud.eliminar(id);
+
+            System.out.println(bundle.getString("personaEliminada"));
+
+        } catch (NumberFormatException e) {
+            System.out.println(bundle.getString("errorFormatoNumerico"));
+        }
+    }
+
+    @FXML
+    void Buscar(ActionEvent event) throws IOException {
+        ResourceBundle bundle = obtenerBundle(); // Obtener el bundle según el idioma seleccionado
+
+        if (txtId.getText().isEmpty()) {
+            System.out.println(bundle.getString("proporcionarID"));
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(txtId.getText());
+            Persona persona = MetodosCrud.Buscar(id);
+
+            if (persona != null) {
+                txtNombre.setText(persona.getNombre());
+                txtApellido.setText(persona.getApellido());
+                txtEdad.setText(String.valueOf(persona.getEdad()));
+                System.out.println(bundle.getString("personaEncontrada") + ": " + persona.getNombre());
+            } else {
+                System.out.println(bundle.getString("personaNoEncontrada"));
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println(bundle.getString("errorFormatoNumerico"));
+        }
+    }
+
+    @FXML
+    void Modificar(ActionEvent event) throws IOException {
+        ResourceBundle bundle = obtenerBundle(); // Obtener el bundle según el idioma seleccionado
+
+        if (txtID.getText().isEmpty() || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtEdad.getText().isEmpty()) {
+            System.out.println(bundle.getString("camposVacios"));
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(txtID.getText());
+            int edad = Integer.parseInt(txtEdad.getText());
+
+            Persona persona = new Persona(id, txtNombre.getText(), txtApellido.getText(), edad);
+            MetodosCrud.Modificar(persona);
+
+            System.out.println(bundle.getString("personaModificada"));
+
+        } catch (NumberFormatException e) {
+            System.out.println(bundle.getString("errorFormatoNumerico"));
+        }
+    }
+
+    /*
     @FXML
     void Guardar(ActionEvent event) throws IOException {
         // Validar que los campos no estén vacíos antes de intentar convertirlos
@@ -204,5 +315,5 @@ public class crudViewController {
             // Manejar el caso de formato incorrecto
             System.out.println("Error: los campos de ID y Edad deben ser números.");
         }
-    }
+    }*/
 }

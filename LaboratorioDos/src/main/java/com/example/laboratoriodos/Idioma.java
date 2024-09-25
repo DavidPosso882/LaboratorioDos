@@ -44,7 +44,7 @@ public class Idioma extends Application {
         LOGGER.addHandler(archivo);
 
         // Guardar log de inicio del programa
-        //Utilidades.guardarRegistroLog("Se inició el programa ", 1, "Iniciar", LOGGER);
+        Utilidades.guardarRegistroLog("Se inició el programa ", 1, "Iniciar", LOGGER);
 
         launch();
         archivo.close();
