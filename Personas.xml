@@ -4,64 +4,64 @@
   <void method="add">
    <object class="com.example.laboratoriodos.Persona">
     <void property="apellido">
-     <string>Posso</string>
+     <string>Ospidelo</string>
     </void>
     <void property="edad">
-     <int>29</int>
+     <int>22</int>
     </void>
     <void property="id">
-     <int>890</int>
+     <int>1</int>
     </void>
     <void property="nombre">
-     <string>David</string>
+     <string>Calberto</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="com.example.laboratoriodos.Persona">
     <void property="apellido">
-     <string>Posso</string>
+     <string>a</string>
     </void>
     <void property="edad">
-     <int>29</int>
+     <int>1</int>
     </void>
     <void property="id">
-     <int>123</int>
+     <int>2</int>
     </void>
     <void property="nombre">
-     <string>David</string>
+     <string>c</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="com.example.laboratoriodos.Persona">
     <void property="apellido">
-     <string>P</string>
+     <string>a1</string>
     </void>
     <void property="edad">
-     <int>23</int>
+     <int>11</int>
     </void>
     <void property="id">
-     <int>123</int>
+     <int>3</int>
     </void>
     <void property="nombre">
-     <string>David</string>
+     <string>c2</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="com.example.laboratoriodos.Persona">
     <void property="apellido">
-     <string>Posso</string>
+     <string>a13</string>
     </void>
     <void property="edad">
-     <int>29</int>
+     <int>114</int>
     </void>
     <void property="id">
-     <int>123</int>
+     <int>31</int>
     </void>
     <void property="nombre">
-     <string>David</string>
+     <string>c22</string>
     </void>
    </object>
   </void>

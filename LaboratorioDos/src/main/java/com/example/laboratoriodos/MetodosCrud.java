@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 public class MetodosCrud {
 
     private static final Logger LOGGER = Logger.getLogger(Idioma.class.getName());
+    public static final String RUTA_ARCHIVO_OBJETO = "LaboratorioDos/src/main/resources/Persistencia/objeto.txt";
 
     public static void Guardar(Object objeto){
         try{
@@ -16,6 +17,11 @@ public class MetodosCrud {
             objetos.add(objeto);
             Utilidades.getInstance().serializarXml("Personas.xml",objetos);
             Utilidades.getInstance().serializarBinario("PersonasB.dat",objetos);
+            ArrayList<String> lista = new ArrayList<>();
+            for (int i = 0; i < objetos.size(); i++) {
+                lista.add(objetos.get(i).toString());
+            }
+            Utilidades.escribirArchivo(RUTA_ARCHIVO_OBJETO, lista, true);
             mostrarAlerta("Guardar","Se guardo exitosamente", Alert.AlertType.CONFIRMATION);
             //Utilidades.guardarRegistroLog("Se creo un nuevo objeto ", 1, "Guardar", LOGGER);
 
