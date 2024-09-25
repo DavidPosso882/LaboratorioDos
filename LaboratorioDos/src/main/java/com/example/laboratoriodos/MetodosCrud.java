@@ -4,8 +4,12 @@ import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class MetodosCrud {
+
+    private static final Logger LOGGER = Logger.getLogger(Idioma.class.getName());
+
     public static void Guardar(Object objeto){
         try{
             ArrayList<Object> objetos= (ArrayList<Object>) Utilidades.getInstance().deserializarXml("Personas.xml");
@@ -13,6 +17,7 @@ public class MetodosCrud {
             Utilidades.getInstance().serializarXml("Personas.xml",objetos);
             Utilidades.getInstance().serializarBinario("PersonasB.dat",objetos);
             mostrarAlerta("Guardar","Se guardo exitosamente", Alert.AlertType.CONFIRMATION);
+            Utilidades.guardarRegistroLog("Se creo un nuevo objeto", 1, "Guardar", LOGGER);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -29,9 +34,13 @@ public class MetodosCrud {
                     objetos.remove(i);
                     mostrarAlerta("Eliminado con exito","Se elimino con exitos", Alert.AlertType.CONFIRMATION);
                     encontrado=true;
+                    Utilidades.guardarRegistroLog("Se elimino un objeto", 2, "Eliminar", LOGGER);
+
                 }}
                 if(encontrado==false){
                     mostrarAlerta("No encontrado","No se encontrarón resultados ", Alert.AlertType.INFORMATION);
+                    Utilidades.guardarRegistroLog("Se intento elimina un objeto", 2, "Eliminar", LOGGER);
+
                 }
 
             Utilidades.getInstance().serializarBinario("PersonasB.dat",objetos);
@@ -50,6 +59,7 @@ public class MetodosCrud {
                         persona=objetos.get(i);
                         //mostrarAlerta("Eliminado con exito","Se elimino con exitos", Alert.AlertType.CONFIRMATION);
                         encontrado=true;
+                        Utilidades.guardarRegistroLog("Se busco un objeto", 1, "Eliminar", LOGGER);
                     }}
                     if(encontrado==false){
                         mostrarAlerta("No encontrado","No se encontrarón resultados ", Alert.AlertType.INFORMATION);
@@ -67,9 +77,11 @@ public class MetodosCrud {
           ArrayList<Persona>objetos= (ArrayList<Persona>) Utilidades.getInstance().deserializarXml("Personas.xml");
           for(int i=0;i<objetos.size();i++){
               if(objetos.get(i).getId()==persona.getId()){
+                  Utilidades.guardarRegistroLog("Se modifico el objeto: "+persona.getId()+" "+persona.getNombre()+" "+persona.getApellido()+" "+persona.getEdad(), 2, "Modificar", LOGGER);
                   objetos.set(i,persona);
                   mostrarAlerta("Modificado exitosamente ","Se modifico con exitos", Alert.AlertType.CONFIRMATION);
                   encontrado=true;
+
               }}
           if(encontrado==false){
               mostrarAlerta("No encontrado","No se encontrarón resultados ", Alert.AlertType.INFORMATION);
