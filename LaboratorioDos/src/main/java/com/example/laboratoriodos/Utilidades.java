@@ -1,22 +1,21 @@
 package com.example.laboratoriodos;
 
-import javafx.scene.control.Alert;
-
-import java.io.*;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Utilidades {
 
-    public static final String RUTA_ARCHIVO_LOG = "src/main/resources/Persistencia/log.txt";
-
+    static String fechaSistema;
 
     private static Utilidades instanciaUnica;
+
     private Utilidades() {
     }
 
-    // Metodo para obtener la instancia única de la clase
     public static Utilidades getInstance() {
         if (instanciaUnica == null) {
             instanciaUnica = new Utilidades();
@@ -25,59 +24,57 @@ public class Utilidades {
     }
 
     public void serializarBinario(String nombre, Object objeto) throws IOException {
-        ObjectOutputStream salida;
-        salida= new ObjectOutputStream(new FileOutputStream(nombre));
+        ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(nombre));
         salida.writeObject(objeto);
         salida.close();
     }
 
-    public Object deserializarBinario(String nombre)throws Exception{
-        Object objeto;
-        ObjectInputStream entrada;
-        entrada=new ObjectInputStream(new FileInputStream(nombre));
-        objeto=entrada.readObject();
+    public Object deserializarBinario(String nombre) throws IOException, ClassNotFoundException {
+        ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(nombre));
+        Object objeto = entrada.readObject();
         entrada.close();
         return objeto;
     }
 
-    public  void serializarXml(String nombre, Object objeto)throws IOException{
-        XMLEncoder codificador;
-        codificador=new XMLEncoder(new FileOutputStream(nombre));
+    public void serializarXml(String nombre, Object objeto) throws IOException {
+        XMLEncoder codificador = new XMLEncoder(new FileOutputStream(nombre));
         codificador.writeObject(objeto);
         codificador.close();
     }
 
-    public Object deserializarXml(String nombre)throws IOException{
-        XMLDecoder decodificador;
-        Object objeto;
-        decodificador=new XMLDecoder(new FileInputStream(nombre));
-        objeto=decodificador.readObject();
+    public Object deserializarXml(String nombre) throws IOException {
+        XMLDecoder decodificador = new XMLDecoder(new FileInputStream(nombre));
+        Object objeto = decodificador.readObject();
         decodificador.close();
         return objeto;
     }
 
-    public void escribirArchivo(String archivo, ArrayList<String> texto, boolean adicionar) throws IOException {
+    public static void guardarRegistroLog(String mensajeLog, int nivel, String accion, Logger logger) {
+        cargarFechaSistema();
 
-        int n = 9;
-
-        FileWriter archivoSalida = null;
-        BufferedWriter bufferSalida;
-
-        archivoSalida = new FileWriter(archivo, adicionar);
-        bufferSalida = new BufferedWriter(archivoSalida);
-
-        for (int i = 0; i < 10; i++) {
-            String linea = texto.get(i);
-            bufferSalida.write(linea + "\n");
-            if (i==n){
-                bufferSalida.flush();
-                n +=10;
-            }
+        switch (nivel) {
+            case 1:
+                logger.log(Level.INFO, accion + "," + mensajeLog + "," + fechaSistema);
+                break;
+            case 2:
+                logger.log(Level.WARNING, accion + "," + mensajeLog + "," + fechaSistema);
+                break;
+            case 3:
+                logger.log(Level.SEVERE, accion + "," + mensajeLog + "," + fechaSistema);
+                break;
+            default:
+                break;
         }
-        bufferSalida.flush();
-        bufferSalida.close();
-        archivoSalida.close();
     }
 
+    private static void cargarFechaSistema() {
+        Calendar cal = Calendar.getInstance();
+        int dia = cal.get(Calendar.DATE);
+        int mes = cal.get(Calendar.MONTH) + 1;
+        int año = cal.get(Calendar.YEAR);
+        int hora = cal.get(Calendar.HOUR_OF_DAY);
+        int minuto = cal.get(Calendar.MINUTE);
 
+        fechaSistema = String.format("%04d-%02d-%02d %02d:%02d", año, mes, dia, hora, minuto);
+    }
 }

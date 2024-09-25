@@ -5,46 +5,42 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.logging.FileHandler;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class Idioma extends Application {
 
     private static final Logger LOGGER = Logger.getLogger(Idioma.class.getName());
+    public static final String RUTA_ARCHIVO_LOG = "src/main/resources/Persistencia/log.txt";
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("crudView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Idioma.class.getResource("crudView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setTitle("Programación laboratorio_2");
         stage.setScene(scene);
         stage.show();
     }
 
-    public static final String RUTA_ARCHIVO_Objeto = "src/main/resources/Persistencia/objeto.txt";
-
     public static void main(String[] args) throws IOException {
 
-        FileHandler archivo = new FileHandler("Log.txt", true);
+        // Crear el directorio si no existe
+        File logFile = new File(RUTA_ARCHIVO_LOG).getParentFile();
+        if (!logFile.exists()) {
+            logFile.mkdirs();
+        }
+
+        // Configurar el FileHandler una única vez
+        FileHandler archivo = new FileHandler(RUTA_ARCHIVO_LOG, true);
         archivo.setFormatter(new SimpleFormatter());
         LOGGER.addHandler(archivo);
 
-
-
-        ArrayList<String> lista = new ArrayList<>();
-        lista.add("Camilo");
-        lista.add("David");
-        
-        Utilidades.escribirArchivo(RUTA_ARCHIVO_Objeto,lista,true);
+        // Guardar log de inicio del programa
+        Utilidades.guardarRegistroLog("Se inició el programa", 1, "Iniciar", LOGGER);
 
         launch();
-
     }
 }

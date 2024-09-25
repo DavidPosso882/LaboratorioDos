@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="405.0" prefWidth="566.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.laboratoriodos.crudViewController">
+<AnchorPane prefHeight="405.0" prefWidth="566.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.laboratoriodos.crudViewController">
     <children>
         <SplitPane layoutX="287.0" layoutY="159.0" prefHeight="405.0" prefWidth="566.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
@@ -33,6 +33,11 @@
                         <Button fx:id="btnGuardar" layoutX="331.0" layoutY="130.0" mnemonicParsing="false" onAction="#Guardar" prefHeight="25.0" prefWidth="67.0" text="Guardar" />
                         <Button fx:id="btnEliminar" layoutX="331.0" layoutY="251.0" mnemonicParsing="false" onAction="#Eliminar" prefHeight="25.0" prefWidth="67.0" text="Eliminar" />
                   <ChoiceBox fx:id="idiomaChoice" layoutX="415.0" layoutY="2.0" prefWidth="150.0" />
+                  <Label fx:id="lblTitulo" layoutX="260.0" layoutY="14.0" text="Titulo">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
                     </children>
                 </AnchorPane>
             </items>

@@ -35,6 +35,8 @@ public class crudViewController {
     @FXML
     private Label lblRegistro;
     @FXML
+    private Label lblTitulo;
+    @FXML
     private Button btnBuscar;
     @FXML
     private Button btnEliminar;
@@ -54,6 +56,7 @@ public class crudViewController {
         btnGuardar.setText(bundle.getString("guardar"));
         btnModificar.setText(bundle.getString("modificar"));
         btnEliminar.setText(bundle.getString("eliminar"));
+        lblTitulo.setText(bundle.getString("titulo"));
     }
     
 
