@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 
 public class Utilidades {
 
+    public static final String RUTA_ARCHIVO_OBJETO = "LaboratorioDos/src/main/resources/Persistencia/objeto.txt";
+
     static String fechaSistema;
 
     private static Utilidades instanciaUnica;
@@ -50,12 +52,12 @@ public class Utilidades {
         return objeto;
     }
 
-    public static void escribirArchivo(String nombre, ArrayList<String> texto, boolean adicionar) throws IOException {
+    public static void escribirArchivo(String RUTA_ARCHIVO_OBJETO, ArrayList<String> texto, boolean adicionar) throws IOException {
         FileWriter archivoSalida;
         BufferedWriter bufferSalida;
 
         archivoSalida = null;
-        archivoSalida = new FileWriter(nombre, adicionar);
+        archivoSalida = new FileWriter(RUTA_ARCHIVO_OBJETO, adicionar);
         bufferSalida = new BufferedWriter(archivoSalida);
 
         int i = 0;

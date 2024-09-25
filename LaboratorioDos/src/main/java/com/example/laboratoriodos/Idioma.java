@@ -15,7 +15,6 @@ public class Idioma extends Application {
 
     private static final Logger LOGGER = Logger.getLogger(Idioma.class.getName());
     public static final String RUTA_ARCHIVO_LOG = "LaboratorioDos/src/main/resources/Persistencia/log.txt";
-    public static final String RUTA_ARCHIVO_OBJETO = "LaboratorioDos/src/main/resources/Persistencia/objeto.txt";
 
     @Override
     public void start(Stage stage) throws IOException {
