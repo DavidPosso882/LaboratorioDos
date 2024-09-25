@@ -11,6 +11,15 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+/*
+
+    Daniela Arboleda Trejos
+    Camilo Alberto Ospina Agudelo
+    David Alfonso Posso Cano
+
+ */
+
+
 public class Idioma extends Application {
 
     private static final Logger LOGGER = Logger.getLogger(Idioma.class.getName());
