@@ -1,5 +1,7 @@
 package com.example.laboratoriodos;
 
+import javafx.scene.control.Alert;
+
 import java.io.*;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -14,7 +16,7 @@ public class Utilidades {
     private Utilidades() {
     }
 
-    // Método para obtener la instancia única de la clase
+    // Metodo para obtener la instancia única de la clase
     public static Utilidades getInstance() {
         if (instanciaUnica == null) {
             instanciaUnica = new Utilidades();
@@ -22,14 +24,14 @@ public class Utilidades {
         return instanciaUnica;
     }
 
-    public static void serializarBinario(String nombre, Object objeto) throws IOException {
+    public void serializarBinario(String nombre, Object objeto) throws IOException {
         ObjectOutputStream salida;
         salida= new ObjectOutputStream(new FileOutputStream(nombre));
         salida.writeObject(objeto);
         salida.close();
     }
 
-    public static Object deserializarBinario(String nombre)throws Exception{
+    public Object deserializarBinario(String nombre)throws Exception{
         Object objeto;
         ObjectInputStream entrada;
         entrada=new ObjectInputStream(new FileInputStream(nombre));
@@ -38,14 +40,14 @@ public class Utilidades {
         return objeto;
     }
 
-    public static void serializarXml(String nombre, Object objeto)throws IOException{
+    public  void serializarXml(String nombre, Object objeto)throws IOException{
         XMLEncoder codificador;
         codificador=new XMLEncoder(new FileOutputStream(nombre));
         codificador.writeObject(objeto);
         codificador.close();
     }
 
-    public static Object deserializarXml(String nombre)throws IOException{
+    public Object deserializarXml(String nombre)throws IOException{
         XMLDecoder decodificador;
         Object objeto;
         decodificador=new XMLDecoder(new FileInputStream(nombre));
@@ -54,7 +56,7 @@ public class Utilidades {
         return objeto;
     }
 
-    public static void escribirArchivo(String archivo, ArrayList<String> texto, boolean adicionar) throws IOException {
+    public void escribirArchivo(String archivo, ArrayList<String> texto, boolean adicionar) throws IOException {
 
         int n = 9;
 
