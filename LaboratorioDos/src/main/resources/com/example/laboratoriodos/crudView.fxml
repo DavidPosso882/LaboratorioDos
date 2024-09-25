@@ -8,20 +8,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="405.0" prefWidth="566.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.laboratoriodos.crudViewController">
+<AnchorPane prefHeight="405.0" prefWidth="566.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.laboratoriodos.crudViewController">
     <children>
         <SplitPane layoutX="287.0" layoutY="159.0" prefHeight="405.0" prefWidth="566.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="300.0">
                     <children>
-                        <Label fx:id="lblApellido" layoutX="11.0" layoutY="237.0" text="Apellido:" />
+                        <Label fx:id="lblApellido" layoutX="14.0" layoutY="287.0" text="Apellido:" />
                         <TextField fx:id="txtId" layoutX="97.0" layoutY="109.0" />
                         <Label fx:id="lblId" layoutX="15.0" layoutY="113.0" text="Identificación" />
-                        <Label fx:id="lblNombre" layoutX="11.0" layoutY="194.0" text="Nombre:" />
-                        <TextField fx:id="txtNombre" layoutX="71.0" layoutY="190.0" />
-                        <TextField fx:id="txtApellido" layoutX="71.0" layoutY="233.0" />
-                        <Label fx:id="lblEdad" layoutX="11.0" layoutY="272.0" text="Edad:" />
-                        <TextField fx:id="txtEdad" layoutX="71.0" layoutY="273.0" prefHeight="25.0" prefWidth="149.0" />
+                        <Label fx:id="lblNombre" layoutX="14.0" layoutY="242.0" text="Nombre:" />
+                        <TextField fx:id="txtNombre" layoutX="75.0" layoutY="238.0" />
+                        <TextField fx:id="txtApellido" layoutX="75.0" layoutY="283.0" />
+                        <Label fx:id="lblEdad" layoutX="16.0" layoutY="335.0" text="Edad:" />
+                        <TextField fx:id="txtEdad" layoutX="75.0" layoutY="331.0" prefHeight="25.0" prefWidth="149.0" />
                         <Label fx:id="lblRegistro" layoutX="86.0" layoutY="43.0" text="Registro">
                             <font>
                                 <Font size="20.0" />
@@ -38,6 +38,8 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
+                  <TextField fx:id="txtID" layoutX="75.0" layoutY="190.0" />
+                  <Label fx:id="lblID" layoutX="16.0" layoutY="194.0" text="ID:" />
                     </children>
                 </AnchorPane>
             </items>

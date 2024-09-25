@@ -17,6 +17,8 @@ public class crudViewController {
     @FXML
     private TextField txtId;
     @FXML
+    private TextField txtID;
+    @FXML
     private TextField txtNombre;
     @FXML
     private TextField txtApellido;
@@ -95,29 +97,112 @@ public class crudViewController {
 
     @FXML
     void Guardar(ActionEvent event) throws IOException {
-        Persona persona=new Persona(Integer.parseInt(txtId.getText()),txtNombre.getText(),txtApellido.getText(),Integer.parseInt(txtEdad.getText()));
-        MetodosCrud.Guardar(persona);
-    }
+        // Validar que los campos no estén vacíos antes de intentar convertirlos
+        if (txtID.getText().isEmpty() || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtEdad.getText().isEmpty()) {
+            // Mostrar mensaje de error o advertencia al usuario (puedes implementar un diálogo si lo deseas)
+            System.out.println("Todos los campos deben estar llenos.");
+            return;
+        }
 
-    @FXML
-    void Eliminar(ActionEvent event) throws IOException {
-        MetodosCrud.eliminar(Integer.parseInt(txtId.getText()));
-    }
-    @FXML
-    void Buscar(ActionEvent event) throws IOException {
-        Persona persona=MetodosCrud.Buscar(Integer.parseInt(txtId.getText()));
-        if(persona!=null){
-            txtNombre.setText(persona.getNombre());
-            txtApellido.setText(persona.getApellido());
-            txtEdad.setText(String.valueOf(persona.getEdad()));
+        try {
+            // Intentar parsear los valores y guardar la persona
+            int id = Integer.parseInt(txtID.getText());
+            int edad = Integer.parseInt(txtEdad.getText());
+
+            Persona persona = new Persona(id, txtNombre.getText(), txtApellido.getText(), edad);
+            MetodosCrud.Guardar(persona);
+
+            // Mostrar mensaje de éxito
+            System.out.println("Persona guardada con éxito.");
+
+        } catch (NumberFormatException e) {
+            // Manejar el caso de formato incorrecto
+            System.out.println("Error: los campos de ID y Edad deben ser números.");
         }
     }
 
+
     @FXML
-    void Modificar(ActionEvent event) throws IOException {
-        Persona persona=new Persona(Integer.parseInt(txtId.getText()),txtNombre.getText(),txtApellido.getText(),Integer.parseInt(txtEdad.getText()));
-        MetodosCrud.Modificar(persona);
+    void Eliminar(ActionEvent event) throws IOException {
+        // Verificar que el campo ID no esté vacío
+        if (txtId.getText().isEmpty()) {
+            // Mostrar mensaje de advertencia
+            System.out.println("Debe proporcionar un ID para eliminar.");
+            return;
+        }
+
+        try {
+            // Convertir el ID a un número entero y eliminar la persona
+            int id = Integer.parseInt(txtId.getText());
+            MetodosCrud.eliminar(id);
+
+            // Mostrar mensaje de éxito
+            System.out.println("Persona eliminada con éxito.");
+
+        } catch (NumberFormatException e) {
+            // Manejar el caso de formato incorrecto
+            System.out.println("Error: el campo de ID debe ser un número.");
+        }
     }
 
 
+    @FXML
+    void Buscar(ActionEvent event) throws IOException {
+        // Verificar que el campo ID no esté vacío
+        if (txtId.getText().isEmpty()) {
+            // Mostrar mensaje de advertencia
+            System.out.println("Debe proporcionar un ID para buscar.");
+            return;
+        }
+
+        try {
+            // Convertir el ID a un número entero
+            int id = Integer.parseInt(txtId.getText());
+
+            // Buscar la persona por ID
+            Persona persona = MetodosCrud.Buscar(id);
+
+            // Si se encuentra la persona, llenar los campos con sus datos
+            if (persona != null) {
+                txtNombre.setText(persona.getNombre());
+                txtApellido.setText(persona.getApellido());
+                txtEdad.setText(String.valueOf(persona.getEdad()));
+                System.out.println("Persona encontrada: " + persona.getNombre());
+            } else {
+                // Mostrar mensaje si no se encuentra la persona
+                System.out.println("Persona no encontrada con el ID proporcionado.");
+            }
+
+        } catch (NumberFormatException e) {
+            // Manejar el caso de formato incorrecto
+            System.out.println("Error: el campo de ID debe ser un número.");
+        }
+    }
+
+
+    @FXML
+    void Modificar(ActionEvent event) throws IOException {
+        // Validar que los campos no estén vacíos
+        if (txtID.getText().isEmpty() || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtEdad.getText().isEmpty()) {
+            // Mostrar mensaje de error o advertencia al usuario
+            System.out.println("Todos los campos deben estar llenos para modificar.");
+            return;
+        }
+
+        try {
+            // Convertir los valores a números y modificar la persona
+            int id = Integer.parseInt(txtID.getText());
+            int edad = Integer.parseInt(txtEdad.getText());
+
+            Persona persona = new Persona(id, txtNombre.getText(), txtApellido.getText(), edad);
+            MetodosCrud.Modificar(persona);
+
+            // Mostrar mensaje de éxito
+            System.out.println("Persona modificada con éxito.");
+
+        } catch (NumberFormatException e) {
+            // Manejar el caso de formato incorrecto
+            System.out.println("Error: los campos de ID y Edad deben ser números.");
+        }
+    }
 }
