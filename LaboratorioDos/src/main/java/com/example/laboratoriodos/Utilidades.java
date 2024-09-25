@@ -3,6 +3,7 @@ package com.example.laboratoriodos;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,6 +48,28 @@ public class Utilidades {
         Object objeto = decodificador.readObject();
         decodificador.close();
         return objeto;
+    }
+
+    public static void escribirArchivo(String nombre, ArrayList<String> texto, boolean adicionar) throws IOException {
+        FileWriter archivoSalida;
+        BufferedWriter bufferSalida;
+
+        archivoSalida = null;
+        archivoSalida = new FileWriter(nombre, adicionar);
+        bufferSalida = new BufferedWriter(archivoSalida);
+
+        int i = 0;
+        for (String linea : texto) {
+            bufferSalida.write(linea + "\n");
+            i++;
+            if (i == 10){
+                bufferSalida.flush();
+                i = 0;
+            }
+        }
+        bufferSalida.flush();
+        bufferSalida.close();
+        archivoSalida.close();
     }
 
     public static void guardarRegistroLog(String mensajeLog, int nivel, String accion, Logger logger) {
