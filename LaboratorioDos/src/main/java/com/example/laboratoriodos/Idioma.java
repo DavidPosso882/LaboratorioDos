@@ -14,7 +14,7 @@ import java.util.logging.SimpleFormatter;
 public class Idioma extends Application {
 
     private static final Logger LOGGER = Logger.getLogger(Idioma.class.getName());
-    public static final String RUTA_ARCHIVO_LOG = "src/main/resources/Persistencia/log.txt";
+    public static final String RUTA_ARCHIVO_LOG = "LaboratorioDos/src/main/resources/Persistencia/log.txt";
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -42,5 +42,6 @@ public class Idioma extends Application {
         Utilidades.guardarRegistroLog("Se inició el programa", 1, "Iniciar", LOGGER);
 
         launch();
+        archivo.close();
     }
 }
