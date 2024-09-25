@@ -1,17 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="21.0.2" class="java.beans.XMLDecoder">
- <object class="com.example.laboratoriodos.Persona">
-  <void property="apellido">
-   <string>Arboleda</string>
+<java version="21.0.4" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="com.example.laboratoriodos.Persona">
+    <void property="apellido">
+     <string>Posso</string>
+    </void>
+    <void property="edad">
+     <int>29</int>
+    </void>
+    <void property="id">
+     <int>890</int>
+    </void>
+    <void property="nombre">
+     <string>David</string>
+    </void>
+   </object>
   </void>
-  <void property="edad">
-   <int>20</int>
-  </void>
-  <void property="id">
-   <int>1</int>
-  </void>
-  <void property="nombre">
-   <string>Daniela</string>
+  <void method="add">
+   <object class="com.example.laboratoriodos.Persona">
+    <void property="apellido">
+     <string>Arboleda Trejos</string>
+    </void>
+    <void property="edad">
+     <int>20</int>
+    </void>
+    <void property="id">
+     <int>123</int>
+    </void>
+    <void property="nombre">
+     <string>daniela</string>
+    </void>
+   </object>
   </void>
  </object>
 </java>
