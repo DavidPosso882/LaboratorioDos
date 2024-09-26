@@ -2,20 +2,20 @@ package com.example.laboratoriodos;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
 
 public class crudViewController {
     @FXML
     private TextField txtId;
+
     @FXML
     private TextField txtID;
     @FXML
@@ -47,8 +47,10 @@ public class crudViewController {
     @FXML
     private Button btnModificar;
 
+    private ResourceBundle bundle;
+
     @FXML
-    public void listaIdiomas(ResourceBundle bundle){
+    public void listaIdiomas(ResourceBundle bundle) {
         lblRegistro.setText(bundle.getString("registro"));
         lblId.setText(bundle.getString("id"));
         lblNombre.setText(bundle.getString("nombre"));
@@ -61,25 +63,6 @@ public class crudViewController {
         lblTitulo.setText(bundle.getString("titulo"));
     }
 
-    private ResourceBundle obtenerBundle() {
-        String selectedLanguage = idiomaChoice.getValue();
-        ResourceBundle bundle = null;
-
-        switch (selectedLanguage) {
-            case "Español":
-                bundle = ResourceBundle.getBundle("Idioma", new Locale("es", "ES"));
-                break;
-            case "Inglés":
-                bundle = ResourceBundle.getBundle("Idioma", new Locale("en", "US"));
-                break;
-            case "Alemán":
-                bundle = ResourceBundle.getBundle("Idioma", new Locale("de", "DE"));
-                break;
-        }
-        return bundle;
-    }
-
-
     @FXML
     public void initialize() {
         // Inicializar el ChoiceBox con los nombres de los idiomas
@@ -90,120 +73,114 @@ public class crudViewController {
 
         // Establecer un listener para cambiar el idioma cuando se seleccione uno del ChoiceBox
         idiomaChoice.setOnAction(this::desplegarIdioma);
+
+        // Cargar el idioma inicial
+        desplegarIdioma(null);
+    }
+
+    private ResourceBundle obtenerBundle() {
+        String selectedLanguage = idiomaChoice.getValue();
+        switch (selectedLanguage) {
+            case "Español":
+                return ResourceBundle.getBundle("Idioma", new Locale("es", "ES"));
+            case "Inglés":
+                return ResourceBundle.getBundle("Idioma", new Locale("en", "US"));
+            case "Alemán":
+                return ResourceBundle.getBundle("Idioma", new Locale("de", "DE"));
+            default:
+                return ResourceBundle.getBundle("Idioma", new Locale("es", "ES"));
+        }
     }
 
     @FXML
     void desplegarIdioma(ActionEvent event) {
-        String selectedLanguage = idiomaChoice.getValue();
-        ResourceBundle bundle;
-
-        switch (selectedLanguage) {
-            case "Español":
-                bundle = ResourceBundle.getBundle("Idioma", new Locale("es", "ES"));
-                listaIdiomas(bundle);
-                break;
-            case "Inglés":
-                bundle = ResourceBundle.getBundle("Idioma", new Locale("en", "US"));
-                listaIdiomas(bundle);
-                break;
-            case "Alemán":
-                bundle = ResourceBundle.getBundle("Idioma", new Locale("de", "De"));
-                listaIdiomas(bundle);
-                break;
-        }
+        bundle = obtenerBundle();
+        listaIdiomas(bundle);
     }
 
     @FXML
     void Guardar(ActionEvent event) throws IOException {
-        ResourceBundle bundle = obtenerBundle(); // Obtener el bundle según el idioma seleccionado
+        // Verificar si los campos están vacíos
         if (txtID.getText().isEmpty() || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtEdad.getText().isEmpty()) {
-            System.out.println(bundle.getString("camposVacios"));
+            MetodosCrud.mostrarAlerta(bundle, "errorTitulo", "camposVacios", Alert.AlertType.ERROR);
             return;
         }
 
         try {
-            int id = Integer.parseInt(txtID.getText());
+            // Intentar convertir los valores de 'id' y 'edad' a números
+            int iD = Integer.parseInt(txtID.getText());
             int edad = Integer.parseInt(txtEdad.getText());
 
-            Persona persona = new Persona(id, txtNombre.getText(), txtApellido.getText(), edad);
-            MetodosCrud.Guardar(persona);
+            // Crear una nueva instancia de la clase Persona
+            Persona persona = new Persona(iD, txtNombre.getText(), txtApellido.getText(), edad);
 
-            System.out.println(bundle.getString("personaGuardada"));
+            // Llamar al metodo Guardar
+            MetodosCrud.Guardar(persona, bundle);
 
         } catch (NumberFormatException e) {
-            System.out.println(bundle.getString("errorFormatoNumerico"));
+            // Si la conversión falla, mostrar un error específico para ID y Edad
+            MetodosCrud.mostrarAlerta(bundle, "errorTitulo", "formatoNumerico", Alert.AlertType.ERROR);
         }
     }
 
+
     @FXML
     void Eliminar(ActionEvent event) throws IOException {
-        ResourceBundle bundle = obtenerBundle(); // Obtener el bundle según el idioma seleccionado
-
         if (txtId.getText().isEmpty()) {
-            System.out.println(bundle.getString("proporcionarID"));
+            MetodosCrud.mostrarAlerta(bundle, "errorTitulo", "idVacio", Alert.AlertType.ERROR);
             return;
         }
 
         try {
             int id = Integer.parseInt(txtId.getText());
-            MetodosCrud.eliminar(id);
-
-            System.out.println(bundle.getString("personaEliminada"));
+            MetodosCrud.eliminar(id, bundle);
 
         } catch (NumberFormatException e) {
-            System.out.println(bundle.getString("errorFormatoNumerico"));
+            MetodosCrud.mostrarAlerta(bundle, "errorTitulo", "formatoNumerico", Alert.AlertType.ERROR);
         }
     }
 
     @FXML
     void Buscar(ActionEvent event) throws IOException {
-        ResourceBundle bundle = obtenerBundle(); // Obtener el bundle según el idioma seleccionado
-
         if (txtId.getText().isEmpty()) {
-            System.out.println(bundle.getString("proporcionarID"));
+            MetodosCrud.mostrarAlerta(bundle, "errorTitulo", "idVacio", Alert.AlertType.ERROR);
             return;
         }
 
         try {
             int id = Integer.parseInt(txtId.getText());
-            Persona persona = MetodosCrud.Buscar(id);
+            Persona persona = MetodosCrud.Buscar(id, bundle);
 
             if (persona != null) {
                 txtNombre.setText(persona.getNombre());
                 txtApellido.setText(persona.getApellido());
                 txtEdad.setText(String.valueOf(persona.getEdad()));
-                System.out.println(bundle.getString("personaEncontrada") + ": " + persona.getNombre());
-            } else {
-                System.out.println(bundle.getString("personaNoEncontrada"));
             }
 
         } catch (NumberFormatException e) {
-            System.out.println(bundle.getString("errorFormatoNumerico"));
+            MetodosCrud.mostrarAlerta(bundle, "errorTitulo", "formatoNumerico", Alert.AlertType.ERROR);
         }
     }
 
     @FXML
     void Modificar(ActionEvent event) throws IOException {
-        ResourceBundle bundle = obtenerBundle(); // Obtener el bundle según el idioma seleccionado
-
         if (txtID.getText().isEmpty() || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtEdad.getText().isEmpty()) {
-            System.out.println(bundle.getString("camposVacios"));
+            MetodosCrud.mostrarAlerta(bundle, "errorTitulo", "camposVacios", Alert.AlertType.ERROR);
             return;
         }
 
         try {
-            int id = Integer.parseInt(txtID.getText());
+            int iD = Integer.parseInt(txtID.getText());
             int edad = Integer.parseInt(txtEdad.getText());
 
-            Persona persona = new Persona(id, txtNombre.getText(), txtApellido.getText(), edad);
-            MetodosCrud.Modificar(persona);
-
-            System.out.println(bundle.getString("personaModificada"));
+            Persona persona = new Persona(iD, txtNombre.getText(), txtApellido.getText(), edad);
+            MetodosCrud.Modificar(persona, bundle);
 
         } catch (NumberFormatException e) {
-            System.out.println(bundle.getString("errorFormatoNumerico"));
+            MetodosCrud.mostrarAlerta(bundle, "errorTitulo", "formatoNumerico", Alert.AlertType.ERROR);
         }
     }
+}
 
     /*
     @FXML
@@ -316,4 +293,4 @@ public class crudViewController {
             System.out.println("Error: los campos de ID y Edad deben ser números.");
         }
     }*/
-}
+
